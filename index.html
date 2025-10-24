@@ -1,116 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>288255.xyz &dash; Free Raster Tile Server</title>
-  <link rel="icon" href="https://288255.xyz/favicon.ico">
-  <link rel="stylesheet" href="style.css">
-  <!-- FontAwesome CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <!-- Highlight.js CDN for syntax highlighting -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>288255.xyz &dash; Free Raster Tile Server</title>
+	<link rel="icon" href="https://288255.xyz/favicon.ico">
+	<link rel="stylesheet" href="style.css">
+	<!-- FontAwesome CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<!-- Highlight.js CDN for syntax highlighting -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
 </head>
+
 <body>
-  <div class="hero">
-    <h1>288255.xyz</h1>
-    <h2>Free, Public Raster Tile Server</h2>
-    <p class="subtitle">No API keys, no authentication, no fees.<br>
-      <em>Just beautiful, open map tiles for everyone.</em>
-    </p>
-  </div>
+	<div class="hero">
+		<h1>288255.xyz</h1>
+		<h2>Free, Public Raster Tile Server</h2>
+		<p class="subtitle">No API keys, no authentication, no fees.<br>
+			<em>Just beautiful, open map tiles for everyone.</em>
+		</p>
+	</div>
 
-  <div class="demo">
-    <iframe src="/map.html" title="Live Map Demo"></iframe>
-    <div class="demo-caption"><a href="/map.html" target="_blank">Open map in new tab</a></div>
-  </div>
+	<div class="demo">
+		<iframe src="/map.html" title="Live Map Demo"></iframe>
+		<div class="demo-caption"><a href="/map.html" target="_blank">Open map in new tab</a></div>
+	</div>
 
-  <section class="quickstart">
-    <h3><i class="fas fa-rocket"></i> Quick Start</h3>
-    <p>Use our raster tiles instantly:</p>
-    <pre><code class="language-text">https://288255.xyz/tiles/{z}/{x}/{y}.png</code></pre>
-    <p><b>Example (Leaflet.js):</b></p>
-    <pre><code class="language-javascript">L.tileLayer('https://288255.xyz/tiles/{z}/{x}/{y}.png', {
+	<section class="quickstart">
+		<h3><i class="fas fa-rocket"></i> Quick Start</h3>
+		<p>Use our raster tiles instantly:</p>
+		<pre><code class="language-text">https://288255.xyz/tiles/{z}/{x}/{y}.png</code></pre>
+		<p><b>Example (Leaflet.js):</b></p>
+		<pre><code class="language-javascript">L.tileLayer('https://288255.xyz/tiles/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
   maxZoom: 19
 }).addTo(map);</code></pre>
-  </section>
+	</section>
 
-  <section class="details">
-    <h3><i class="fas fa-clipboard-list"></i> Service Details</h3>
-    <ul>
-      <li>No authentication, API keys, or payment required.</li>
-      <li>Free for commercial and personal use</li>
-      <li>Planet data from <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a></li>
-      <li>No SLA or uptime guarantee</li>
-    </ul>
-  </section>
+	<section class="details">
+		<h3><i class="fas fa-clipboard-list"></i> Service Details</h3>
+		<ul>
+			<li>No authentication, API keys, or payment required.</li>
+			<li>Free for commercial and personal use</li>
+			<li>Planet data from <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a></li>
+			<li>No SLA or uptime guarantee</li>
+		</ul>
+	</section>
 
-  <section class="openfreemap">
-    <h3><i class="fas fa-globe"></i> About OpenFreeMap</h3>
-    <p>
-      <b>OpenFreeMap</b> generously provides the global vector tile infrastructure that powers this service.<br>
-      <br>
-      <b>How it works:</b> We fetch vector tiles from <a href="https://openfreemap.org/" target="_blank">OpenFreeMap</a> and render them into raster tiles on demand.<br>
-      <br>
-      We are grateful to <a href="https://openfreemap.org/" target="_blank">OpenFreeMap</a> for making open, high-quality map data available to everyone.<br>
-      <br>
-      Learn more or support them at <a href="https://openfreemap.org/" target="_blank">openfreemap.org</a>.
-    </p>
-  </section>
+	<section class="openfreemap">
+		<h3><i class="fas fa-globe"></i> About OpenFreeMap</h3>
+		<p>
+			<b>OpenFreeMap</b> generously provides the global vector tile infrastructure that powers this service.<br>
+			<br>
+			<b>How it works:</b> We fetch vector tiles from <a href="https://openfreemap.org/"
+				target="_blank">OpenFreeMap</a> and render them into raster tiles on demand.<br>
+			<br>
+			We are grateful to <a href="https://openfreemap.org/" target="_blank">OpenFreeMap</a> for making open,
+			high-quality map data available to everyone.<br>
+			<br>
+			Learn more or support them at <a href="https://openfreemap.org/" target="_blank">openfreemap.org</a>.
+		</p>
+	</section>
 
-  <section class="caching">
-    <h3><i class="fas fa-database"></i> Caching</h3>
-    <ul>
-      <li>Tiles arecached for 1 month</li>
-      <li>Inactive tiles (tiles with no requests) are removed after 2 weeks</li>
-      <li>Stale tiles are updated in the background</li>
-    </ul>
-  </section>
+	<section class="caching">
+		<h3><i class="fas fa-database"></i> Caching</h3>
+		<ul>
+			<li>Tiles arecached for 1 month</li>
+			<li>Inactive tiles (tiles with no requests) are removed after 2 weeks</li>
+			<li>Stale tiles are updated in the background</li>
+		</ul>
+	</section>
 
-  <section class="attribution">
-    <h3><i class="fas fa-bullhorn"></i> Attribution</h3>
-    <p>You <b>must</b> attribute <a href="https://www.openstreetmap.org/">OpenStreetMap</a> when using this service.<br>
-      We appreciate attribution to <b>288255</b> and <a href="https://openfreemap.org/">OpenFreeMap</a> as well.</p>
-  </section>
+	<section class="attribution">
+		<h3><i class="fas fa-bullhorn"></i> Attribution</h3>
+		<p>You <b>must</b> attribute <a href="https://www.openstreetmap.org/">OpenStreetMap</a> when using this
+			service.<br>
+			We appreciate attribution to <b>288255</b> and <a href="https://openfreemap.org/">OpenFreeMap</a> as well.
+		</p>
+	</section>
 
-  <section class="faq">
-    <h3><i class="fas fa-question-circle"></i> FAQ</h3>
-    <details>
-      <summary><b>What is this?</b></summary>
-      <p>A free, public raster tile server for maps. No sign-up, no cost.</p>
-    </details>
-    <details>
-      <summary><b>What data do you use?</b></summary>
-  <p>Planet data from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>. Tiles rendered from <a href="https://openfreemap.org/">OpenFreeMap</a> vector tiles.</p>
-    </details>
-    <details>
-      <summary><b>Can I use it for commercial projects?</b></summary>
-      <p>Yes!</p>
-    </details>
-    <details>
-      <summary><b>How much does it cost to run this service?</b></summary>
-      <p>Currently, about <b>€15/month</b> to host.</p>
-      <!-- TODO: add donation link -->
-    </details>
-    <details>
-      <summary><b>What tech stack do you use?</b></summary>
-      <p>
-        We use nginx for caching. Cache misses are proxied to HAProxy.
-        HAProxy will load balance and queue the request.
-        Lastly, we use Tileserver GL to render raster tiles from the vector tiles.
-        <!-- TODO: link to codeberg repo -->
-      </p>
-    </details>
-  </section>
+	<section class="faq">
+		<h3><i class="fas fa-question-circle"></i> FAQ</h3>
+		<details>
+			<summary><b>What is this?</b></summary>
+			<p>A free, public raster tile server for maps. No sign-up, no cost.</p>
+		</details>
+		<details>
+			<summary><b>What data do you use?</b></summary>
+			<p>Planet data from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>. Tiles rendered from <a
+					href="https://openfreemap.org/">OpenFreeMap</a> vector tiles.</p>
+		</details>
+		<details>
+			<summary><b>Can I use it for commercial projects?</b></summary>
+			<p>Yes!</p>
+		</details>
+		<details>
+			<summary><b>How much does it cost to run this service?</b></summary>
+			<p>Currently, about <b>€15/month</b> to host.</p>
+			<!-- TODO: add donation link -->
+		</details>
+		<details>
+			<summary><b>What tech stack do you use?</b></summary>
+			<p>
+				We use nginx for caching. Cache misses are proxied to HAProxy.
+				HAProxy will load balance and queue the request.
+				Lastly, we use Tileserver GL to render raster tiles from the vector tiles.
+				<!-- TODO: link to codeberg repo -->
+			</p>
+		</details>
+	</section>
 
-  <footer>
-    <div class="footer-inner">
-  Made with <span style="color:#e25555">&#10084;</span> by <a href="https://288255.xyz">288255</a> &middot; Powered by <a href="https://openfreemap.org/">OpenFreeMap</a>
-    </div>
-  </footer>
-  <!-- Highlight.js CDN and initialization -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
+	<footer>
+		<div class="footer-inner">
+			Made with <span style="color:#e25555">&#10084;</span> by <a href="https://288255.xyz">288255</a> &middot;
+			Powered by <a href="https://openfreemap.org/">OpenFreeMap</a>
+		</div>
+	</footer>
+	<!-- Highlight.js CDN and initialization -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
 </body>
+
 </html>
