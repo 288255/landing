@@ -52,7 +52,7 @@
     <p>
       <b>OpenFreeMap</b> generously provides the global vector tile infrastructure that powers this service.<br>
       <br>
-      <b>How it works:</b> We fetch vector tiles from <a href="https://openfreemap.org/" target="_blank">OpenFreeMap</a> and render them into raster tiles on demand. This lets you use a simple raster tile endpoint, while benefiting from the flexibility and freshness of vector data.<br>
+      <b>How it works:</b> We fetch vector tiles from <a href="https://openfreemap.org/" target="_blank">OpenFreeMap</a> and render them into raster tiles on demand.<br>
       <br>
       We are grateful to <a href="https://openfreemap.org/" target="_blank">OpenFreeMap</a> for making open, high-quality map data available to everyone.<br>
       <br>
@@ -63,8 +63,9 @@
   <section class="caching">
     <h3><i class="fas fa-database"></i> Caching</h3>
     <ul>
-      <li>Images cached for 1 month</li>
-      <li>Inactive tiles removed after 2 weeks</li>
+      <li>Tiles arecached for 1 month</li>
+      <li>Inactive tiles (tiles with no requests) are removed after 2 weeks</li>
+      <li>Stale tiles are updated in the background</li>
     </ul>
   </section>
 
@@ -86,11 +87,21 @@
     </details>
     <details>
       <summary><b>Can I use it for commercial projects?</b></summary>
-      <p>Yes! The service is free for all uses.</p>
+      <p>Yes!</p>
     </details>
     <details>
       <summary><b>How much does it cost to run this service?</b></summary>
       <p>Currently, about <b>€15/month</b> to host.</p>
+      <!-- TODO: add donation link -->
+    </details>
+    <details>
+      <summary><b>What tech stack do you use?</b></summary>
+      <p>
+        We use nginx for caching. Cache misses are proxied to HAProxy.
+        HAProxy will load balance and queue the request.
+        Lastly, we use Tileserver GL to render raster tiles from the vector tiles.
+        <!-- TODO: link to codeberg repo -->
+      </p>
     </details>
   </section>
 
