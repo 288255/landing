@@ -13,6 +13,9 @@ Our service is powered by **OpenFreeMap**, they provide the vector tiles, we ren
 When using this service, you are required to attribute OpenStreetMap.
 We prefer it if you also attribute both 288255 and OpenFreeMap, but this is not required.
 
+## Caching
+Currently, images are cached on our server for **1 month**. Inactive (tiles with no requests) are removed after **two weeks**.
+
 ## FAQ
 ### 1. What is this?
 A free to use raster tile server.
