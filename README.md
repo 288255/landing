@@ -4,12 +4,10 @@ The service is free to use and does not require any authentication, api keys or 
 
 Our service is powered by **OpenFreeMap**, they provide the vector tiles, we render them.
 
-## SLA
-**Please note** that we do not offer any SLA or uptime guarantee.
+## Tech stack
+- NGINX
+- HAProxy
+- Tileserver GL
 
-## Attribution
-When using this service, you are required to attribute OpenStreetMap.
-We prefer it if you also attribute both 288255 and OpenFreeMap, but this is not required.
-
-## Caching
-Currently, images are cached on our server for **1 month**. Inactive (tiles with no requests) are removed after **two weeks**.
+You can find the config files for the first two in this repo.
+For the tileserver, you can find its config file here: https://codeberg.org/BasToTheMax/tileserver-template
