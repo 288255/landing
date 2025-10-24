@@ -15,17 +15,3 @@ We prefer it if you also attribute both 288255 and OpenFreeMap, but this is not 
 
 ## Caching
 Currently, images are cached on our server for **1 month**. Inactive (tiles with no requests) are removed after **two weeks**.
-
-## FAQ
-### 1. What is this?
-A free to use raster tile server.
-
-### 2. What data do you use?
-Planet data is provided by OpenStreetMap.
-When using this service, you are required to attribute them.
-
-### 3. Can I use it for commercial projects?
-Yes!
-
-### 4. How much does it cost to run this service?
-Currently, the service only cost about €15/month to host.

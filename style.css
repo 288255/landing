@@ -1,0 +1,139 @@
+body {
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  background: #f8fafc;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+.hero {
+  text-align: center;
+  padding: 2.5rem 1rem 1.5rem 1rem;
+  background: linear-gradient(90deg, #e0e7ff 0%, #f0fdfa 100%);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 0.5rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin: 0.2em 0 0.1em 0;
+  letter-spacing: 2px;
+}
+
+.hero h2 {
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin: 0.2em 0 0.5em 0;
+  color: #4f46e5;
+}
+
+.subtitle {
+  color: #334155;
+  font-size: 1.1rem;
+  margin-bottom: 0.5em;
+}
+
+.demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0 1.5rem 0;
+}
+
+.demo iframe {
+  width: 100%;
+  max-width: 900px;
+  height: 500px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #0002;
+  background: #fff;
+}
+
+.demo-caption {
+  margin-top: 0.5em;
+  color: #64748b;
+  font-size: 0.95em;
+}
+
+section {
+  max-width: 700px;
+  margin: 2.5rem auto 1.5rem auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+}
+
+section h3 {
+  margin-top: 0;
+  color: #2563eb;
+  font-size: 1.3rem;
+}
+
+.quickstart pre, .quickstart code {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-radius: 5px;
+  padding: 0.3em 0.6em;
+  font-size: 1em;
+  font-family: 'Fira Mono', 'Consolas', monospace;
+}
+
+.quickstart pre {
+  padding: 0.8em 1em;
+  overflow-x: auto;
+}
+
+ul {
+  padding-left: 1.2em;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+.attribution a {
+  color: #0ea5e9;
+  text-decoration: none;
+}
+
+.faq details {
+  margin-bottom: 1em;
+  background: #f1f5f9;
+  border-radius: 6px;
+  padding: 0.7em 1em;
+}
+
+.faq summary {
+  font-weight: 600;
+  cursor: pointer;
+  color: #334155;
+}
+
+footer {
+  text-align: center;
+  padding: 2em 0 1.5em 0;
+  color: #64748b;
+  background: none;
+  font-size: 1em;
+}
+
+.footer-inner a {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+@media (max-width: 800px) {
+  .demo iframe {
+    height: 320px;
+  }
+  section {
+    padding: 1.2rem 0.7rem 1rem 0.7rem;
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>288255.xyz &mdash; Free Raster Tile Server</title>
+  <link rel="icon" href="https://288255.xyz/favicon.ico">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="hero">
+    <img src="https://288255.xyz/favicon.ico" alt="288255 Logo" class="logo">
+    <h1>288255.xyz</h1>
+    <h2>Free, Public Raster Tile Server</h2>
+    <p class="subtitle">Powered by <b>OpenFreeMap</b> &mdash; No API keys, no authentication, no fees.<br>
+      <em>Just beautiful, open map tiles for everyone.</em>
+    </p>
+  </div>
+
+  <div class="demo">
+    <iframe src="/map.html" title="Live Map Demo"></iframe>
+    <div class="demo-caption">Live demo &mdash; explore the map above!</div>
+  </div>
+
+  <section class="quickstart">
+    <h3>🚀 Quick Start</h3>
+    <p>Use our raster tiles instantly:</p>
+    <pre><code>https://288255.xyz/tiles/{z}/{x}/{y}.png</code></pre>
+    <p>Replace <code>{z}</code>, <code>{x}</code>, <code>{y}</code> with your desired zoom and coordinates.</p>
+    <p><b>Example (Leaflet.js):</b></p>
+    <pre><code>L.tileLayer('https://288255.xyz/tiles/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+  maxZoom: 19
+}).addTo(map);</code></pre>
+  </section>
+
+  <section class="details">
+    <h3>📝 Service Details</h3>
+    <ul>
+      <li>No authentication, API keys, or payment required.</li>
+      <li>Powered by <a href="https://openfreemap.org/" target="_blank">OpenFreeMap</a> (vector tiles, rendered by us)</li>
+      <li>Free for commercial and personal use</li>
+      <li>Planet data from <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a></li>
+      <li>Images cached for 1 month (inactive tiles removed after 2 weeks)</li>
+      <li>No SLA or uptime guarantee</li>
+    </ul>
+  </section>
+
+  <section class="attribution">
+    <h3>📢 Attribution</h3>
+    <p>You <b>must</b> attribute <a href="https://www.openstreetmap.org/">OpenStreetMap</a> when using this service.<br>
+      We appreciate attribution to <b>288255</b> and <a href="https://openfreemap.org/">OpenFreeMap</a> as well.</p>
+  </section>
+
+  <section class="faq">
+    <h3>❓ FAQ</h3>
+    <details>
+      <summary><b>What is this?</b></summary>
+      <p>A free, public raster tile server for maps. No sign-up, no cost.</p>
+    </details>
+    <details>
+      <summary><b>What data do you use?</b></summary>
+      <p>Planet data from <a href="https://www.openstreetmap.org/">OpenStreetMap</a>. Tiles rendered from <a href="https://openfreemap.org/">OpenFreeMap</a> vector tiles.</p>
+    </details>
+    <details>
+      <summary><b>Can I use it for commercial projects?</b></summary>
+      <p>Yes! The service is free for all uses.</p>
+    </details>
+    <details>
+      <summary><b>How much does it cost to run this service?</b></summary>
+      <p>Currently, about <b>€15/month</b> to host.</p>
+    </details>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      Made with <span style="color:#e25555">&#10084;</span> by <a href="https://288255.xyz">288255</a> &middot; Powered by <a href="https://openfreemap.org/">OpenFreeMap</a>
+    </div>
+  </footer>
+</body>
+</html>
