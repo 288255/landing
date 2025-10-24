@@ -4,8 +4,6 @@ The service is free to use and does not require any authentication, api keys or 
 
 Our service is powered by **OpenFreeMap**, they provide the vector tiles, we render them.
 
-<iframe src="/map.html" style="width:100%;height:500px;">Iframe failed to load</iframe>
-
 ## SLA
 **Please note** that we do not offer any SLA or uptime guarantee.
 
