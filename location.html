@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leaflet — Pan to user location every second (robust)</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <style>
+    html,body,#map { height: 100%; margin: 0; padding: 0; }
+    #map { height: 100vh; }
+    .info { position: absolute; left: 10px; top: 10px; z-index: 1000; background: rgba(255,255,255,0.96); padding: 8px 10px; border-radius:8px; font-family: system-ui, Arial; font-size:13px; box-shadow:0 2px 8px rgba(0,0,0,0.12) }
+    .controls { margin-top:6px; display:flex; gap:6px; align-items:center }
+    button { font:inherit; padding:6px 8px; border-radius:6px; border:1px solid #ccc; background:#fff; cursor:pointer }
+    button.primary { background:#167dff; color:white; border-color:transparent }
+    small { display:block; margin-top:6px; color:#444 }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class="info" id="status">
+    <div id="msg">Initializing…</div>
+    <div class="controls">
+      <button id="retry">Retry location</button>
+      <button id="togglePan" class="primary">Auto-pan: ON</button>
+      <button id="centerOnce">Center once</button>
+    </div>
+    <small id="meta">zoom: 15 — pan every 1s</small>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    // Config
+    const TILE_URL = 'https://tiles.288255.xyz/{z}/{x}/{y}.png';
+    const DEFAULT_ZOOM = 15;
+    const PAN_INTERVAL_MS = 1000; // pan every second
+
+    // Map setup
+    const map = L.map('map', {zoomControl: true}).setView([0,0], DEFAULT_ZOOM);
+    L.tileLayer(TILE_URL, { maxZoom: 19, tileSize: 256, attribution: '© OpenMapTiles | © OpenFreeMap | © OpenStreetMap contributors | © 288255.xyz' }).addTo(map);
+
+    // UI elements
+    const msgEl = document.getElementById('msg');
+    const metaEl = document.getElementById('meta');
+    const retryBtn = document.getElementById('retry');
+    const togglePanBtn = document.getElementById('togglePan');
+    const centerOnceBtn = document.getElementById('centerOnce');
+
+    // Marker & accuracy
+    const marker = L.marker([0,0]);
+    const accuracyCircle = L.circle([0,0], {radius: 0});
+
+    let latestLatLng = null;
+    let haveLocation = false;
+    let watchId = null;
+    let autoPan = true;
+    let lastPositionTime = null;
+
+    function setStatus(text) { msgEl.textContent = text; }
+    function setMeta(text) { metaEl.textContent = text; }
+
+    // Provide human-friendly error text for GeolocationPositionError codes
+    function geolocationErrorText(err) {
+      // err may be a GeolocationPositionError or something else
+      if (!err) return 'Unknown error';
+      const code = err.code;
+      switch (code) {
+        case 1: return 'Permission denied — user refused to allow location.';
+        case 2: return 'Position unavailable — the device could not determine location.';
+        case 3: return 'Timeout — obtaining location took too long.';
+        default: return err.message || String(err);
+      }
+    }
+
+    // Robust error handler: show details and suggest actions
+    function handleGeoError(err) {
+      // Sometimes error prints as [object GeolocationPositionError] if converted to string.
+      const friendly = geolocationErrorText(err);
+      // If err has a message include it, otherwise show code and name
+      let details = '';
+      try {
+        details = err && (err.message ? ` (${err.message})` : ` (code ${err.code})`);
+      } catch (e) {
+        details = '';
+      }
+
+      setStatus(`Geolocation error: ${friendly}${details}`);
+      console.error('Geolocation error object:', err);
+
+      // Suggestions for the user
+      let suggestion = '';
+      if (err && err.code === 1) {
+        suggestion = 'Please enable location permissions for this site in your browser settings and click Retry.';
+      } else if (err && err.code === 3) {
+        suggestion = 'Try moving to an open area or enable high accuracy (GPS). Click Retry.';
+      } else {
+        suggestion = 'Click Retry to try again.';
+      }
+      setMeta(`zoom: ${map.getZoom()} — pan every ${PAN_INTERVAL_MS/1000}s — ${suggestion}`);
+    }
+
+    // Success callback for position updates
+    function onPosition(pos) {
+      if (!pos || !pos.coords) return;
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      const acc = pos.coords.accuracy || 0;
+
+      latestLatLng = L.latLng(lat, lng);
+      lastPositionTime = new Date();
+
+      if (!haveLocation) {
+        marker.addTo(map);
+        accuracyCircle.addTo(map);
+        map.setView(latestLatLng, DEFAULT_ZOOM);
+        haveLocation = true;
+      }
+
+      marker.setLatLng(latestLatLng);
+      accuracyCircle.setLatLng(latestLatLng).setRadius(acc);
+
+      setStatus(`Location: ${lat.toFixed(6)}, ${lng.toFixed(6)} — accuracy ±${Math.round(acc)} m`);
+      setMeta(`zoom: ${map.getZoom()} — pan every ${PAN_INTERVAL_MS/1000}s — last update: ${lastPositionTime.toLocaleTimeString()}`);
+    }
+
+    // Start watching position with robust fallbacks
+    function startWatch() {
+      if (!('geolocation' in navigator)) {
+        setStatus('Geolocation not available in this browser.');
+        setMeta('Allow location access or use a different browser.');
+        return;
+      }
+
+      // Clear previous watch if any
+      if (watchId !== null) {
+        try { navigator.geolocation.clearWatch(watchId); } catch (e) { /* ignore */ }
+        watchId = null;
+      }
+
+      // Try watchPosition first
+      try {
+        watchId = navigator.geolocation.watchPosition(onPosition, (err) => {
+          // If watchPosition fails, show helpful error and try a single getCurrentPosition as a fallback
+          handleGeoError(err);
+
+          // Fallback: try getCurrentPosition once (useful if watch fails due to device limitations)
+          try {
+            navigator.geolocation.getCurrentPosition(onPosition, (getErr) => {
+              handleGeoError(getErr);
+            }, { enableHighAccuracy: true, timeout: 10000 });
+          } catch (e) {
+            console.error('getCurrentPosition fallback failed:', e);
+          }
+        }, { enableHighAccuracy: true, maximumAge: 1000, timeout: 10000 });
+
+        setStatus('Waiting for location… (allow the browser to access your location)');
+      } catch (e) {
+        console.error('watchPosition threw:', e);
+        setStatus('Failed to start geolocation watcher.');
+        setMeta('Check browser permissions and try Retry.');
+      }
+    }
+
+    // Initial start
+    startWatch();
+
+    // Pan-to-latest every second if available and autoPan is true
+    const panTimer = setInterval(() => {
+      if (autoPan && latestLatLng) {
+        // Smooth pan; short duration keeps it responsive
+        try {
+          map.panTo(latestLatLng, { animate: true, duration: 0.8 });
+        } catch (e) {
+          // Some Leaflet builds might not support options on panTo — fall back to setView
+          map.setView(latestLatLng, map.getZoom());
+        }
+      }
+    }, PAN_INTERVAL_MS);
+
+    // UI actions
+    retryBtn.addEventListener('click', () => {
+      setStatus('Retrying location…');
+      startWatch();
+    });
+
+    togglePanBtn.addEventListener('click', () => {
+      autoPan = !autoPan;
+      togglePanBtn.textContent = `Auto-pan: ${autoPan ? 'ON' : 'OFF'}`;
+      togglePanBtn.classList.toggle('primary', autoPan);
+    });
+
+    centerOnceBtn.addEventListener('click', () => {
+      if (latestLatLng) {
+        map.setView(latestLatLng, map.getZoom());
+      } else {
+        setStatus('No location yet — please allow location access and click Retry.');
+      }
+    });
+
+    // Clean up on unload
+    window.addEventListener('beforeunload', () => {
+      if (watchId !== null) {
+        try { navigator.geolocation.clearWatch(watchId); } catch (e) {}
+      }
+      clearInterval(panTimer);
+    });
+  </script>
+</body>
+</html>
